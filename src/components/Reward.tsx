@@ -150,7 +150,7 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="reward-popup quiz-card border-0 p-0 mx-auto">
+        <DialogContent   showCloseButton={false} className="reward-popup quiz-card border-0 p-0 mx-auto">
           <div className="relative">
             {/* Confetti */}
         
@@ -248,8 +248,8 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                  /> */}
        <AnimatePresence>
          {showPrizePopup && wonPrize && (
-           <Dialog open={showPrizePopup} onOpenChange={() => setShowPrizePopup(false)} style={{position:'absolute'}}>
-             <DialogContent className="reward-popup quiz-card border-0 p-0  mx-auto">
+                       <Dialog open={showPrizePopup} onOpenChange={() => setShowPrizePopup(false)}>
+              <DialogContent showCloseButton={false} className="reward-popup quiz-card border-0 p-0  mx-auto" style={{position:'absolute'}}>
                <div className="relative">
                  {/* Confetti on Prize Popup */}
                  {showPrizePopup && wonPrize && createPortal(
@@ -304,10 +304,10 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="mb-6"
                 >
-                  <h2 className="text-2xl font-bold text-white mb-4">
+                  <h2 className=" text-white/90   text-xl font-semibold text-white mb-4">
                     {content.youWin}
                   </h2>
-                  <p className="text-white/90 text-xl font-semibold">
+                  <p className=" text-2xl font-bold ">
                     {isArabic ? wonPrize.nameArabic : wonPrize.name}
                   </p>
                 </motion.div>
