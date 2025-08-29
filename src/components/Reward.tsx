@@ -1,122 +1,335 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Trophy, Star } from 'lucide-react';
+import { Trophy, Star, Gift, Sun, Speaker, Package } from 'lucide-react';
 import Confetti from 'react-confetti';
-
+import { createPortal } from 'react-dom';
 interface RewardProps {
   isOpen: boolean;
   onClose: () => void;
   onReset: () => void;
   language: 'english' | 'arabic';
+  userName?: string;
 }
 
-export function Reward({ isOpen, onClose, onReset, language }: RewardProps) {
+interface Prize {
+  id: string;
+  name: string;
+  nameArabic: string;
+  icon: React.ComponentType<any>;
+}
+
+const prizes: Prize[] = [
+  {
+    id: 'sun-shade',
+    name: 'Sun Shade',
+    nameArabic: 'مظلة شمسية',
+    icon: Sun
+  },
+  {
+    id: 'bluetooth-speaker',
+    name: 'Bluetooth Speaker',
+    nameArabic: 'مكبر صوت بلوتوث',
+    icon: Speaker
+  },
+  {
+    id: 'empty-box',
+    name: 'Empty Box',
+    nameArabic: 'صندوق فارغ',
+    icon: Package
+  }
+];
+
+export function Reward({ isOpen, onClose, onReset, language, userName }: RewardProps) {
   const isArabic = language === 'arabic';
-  
+  const [selectedBox, setSelectedBox] = useState<number | null>(null);
+  const [wonPrize, setWonPrize] = useState<Prize | null>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [showPrizePopup, setShowPrizePopup] = useState(false);
+  const [openedBoxes, setOpenedBoxes] = useState<Set<number>>(new Set());
+  const [boxPrizes, setBoxPrizes] = useState<Prize[]>([]);
+
   const content = {
     title: isArabic ? 'تهانينا!' : 'Congratulations!',
-    message1: isArabic 
-      ? 'لقد أنهيت رحلة التمويل بنجاح!'
-      : 'You\'ve successfully completed your financing journey!',
-    message2: isArabic 
-      ? 'الوطنية للتمويل تجعل حلمك واقعًا.'
-      : 'National Finance is here to help make your dreams come true.',
+    message1: isArabic
+        ? 'لقد أنهيت رحلة التمويل بنجاح!'
+        : 'You\'ve successfully completed your financing journey!',
+    message2: isArabic
+        ? 'الوطنية للتمويل تجعل حلمك واقعًا.'
+        : 'National Finance is here to help make your dreams come true.',
     prizeTitle: isArabic ? 'تهانينا!' : 'Congratulations!',
     prizeText: isArabic ? 'اكتشف جائزتك الآن.' : 'Unlock your prize now.',
-    buttonText: isArabic ? 'رائع!' : 'Awesome!'
+    buttonText: isArabic ? 'رائع!' : 'Awesome!',
+    youWin: isArabic 
+        ? `لقد ربحت ${userName || ''}` 
+        : `You win ${userName || ''}`,
+    selectBox: isArabic ? 'اختر صندوقًا' : 'Select a box'
+  };
+
+  // Initialize random prizes for boxes when dialog opens
+  useEffect(() => {
+    if (isOpen) {
+      setSelectedBox(null);
+      setWonPrize(null);
+      setShowConfetti(false);
+      setShowPrizePopup(false);
+      setOpenedBoxes(new Set());
+      
+      // Randomly assign prizes to boxes
+      const shuffledPrizes = [...prizes].sort(() => Math.random() - 0.5);
+      setBoxPrizes(shuffledPrizes);
+    }
+  }, [isOpen]);
+
+  const handleBoxClick = (boxIndex: number) => {
+    if (openedBoxes.has(boxIndex)) return;
+    
+    setSelectedBox(boxIndex);
+    setOpenedBoxes(prev => new Set([...prev, boxIndex]));
+    
+    // Get the prize for this box
+    const prize = boxPrizes[boxIndex];
+    setWonPrize(prize);
+    setShowConfetti(true);
+    
+    // Show prize popup after confetti
+    setTimeout(() => {
+      setShowPrizePopup(true);
+      setShowConfetti(false);
+    }, 2000);
   };
 
   const handleAwesomeClick = () => {
+    setShowPrizePopup(false);
     onClose();
     onReset();
   };
 
-  return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-<DialogContent className="reward-popup quiz-card border-0 p-0 overflow-hidden mx-auto">
-
-
-      {/* <DialogContent className="dialogue quiz-card border-0 p-0 overflow-hidden max-w-md mx-auto"> */}
-        <div className="relative">
-          {/* Confetti */}
-          <Confetti
-            width={400}
-            height={500}
-            recycle={false}
-            numberOfPieces={200}
-            colors={['#8B5CF6', '#EC4899', '#F59E0B', '#10B981']}
-          />
-          
-          {/* Content */}
-          <div className="p-8 text-center relative z-10" dir={isArabic ? 'rtl' : 'ltr'}>
-            {/* Trophy Icon */}
+  const renderGiftBox = (index: number) => {
+    const isOpened = openedBoxes.has(index);
+    const isSelected = selectedBox === index;
+    
+    return (
+      <motion.div
+        key={index}
+        initial={{ scale: 0, rotate: -180 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ duration: 0.6, delay: index * 0.2, type: "spring", stiffness: 200 }}
+        whileHover={{ scale: isOpened ? 1 : 1.05 }}
+        whileTap={{ scale: isOpened ? 1 : 0.95 }}
+        className={`relative cursor-pointer ${isOpened ? 'pointer-events-none' : ''}`}
+        onClick={() => handleBoxClick(index)}
+      >
+        <div className={`w-20 h-20 bg-gradient-to-r from-blue-600 to-[#C8102E] rounded-xl flex items-center justify-center shadow-lg transition-all duration-300 ${
+          isOpened ? 'scale-110' : 'hover:shadow-xl'
+        }`}>
+          {isOpened && isSelected ? (
             <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
-              className="mb-6"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5, type: "spring" }}
             >
-              <div className="w-24 h-24 bg-gradient-to-r from-blue-600 to-[#C8102E] rounded-full flex items-center justify-center mx-auto">
-                <Trophy className="w-12 h-12 text-white" />
-              </div>
+              {wonPrize && <wonPrize.icon className="w-8 h-8 text-white" />}
             </motion.div>
-
-            {/* Success Message */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="mb-6"
-            >
-              <h2 className="text-2xl font-bold text-white mb-4">
-                {content.title}
-              </h2>
-              <p className="text-white/90 text-lg leading-relaxed mb-4">
-                {content.message1}
-              </p>
-              <p className="text-white/80 text-base leading-relaxed mb-6">
-                {content.message2}
-              </p>
-            </motion.div>
-
-            {/* Prize Unlock */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mb-8"
-            >
-              <div className="bg-gradient-to-r from-blue-600/20 to-[#C8102E]/20 rounded-xl p-4 border border-blue-600/30">
-                <div className="flex items-center justify-center space-x-2 mb-2">
-                  <Star className="w-5 h-5 text-yellow-400" />
-                  <span className="text-white font-semibold">{content.prizeTitle}</span>
-                  <Star className="w-5 h-5 text-yellow-400" />
-                </div>
-                <p className="text-white/90 text-sm">
-                  {content.prizeText}
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Close Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-            >
-              <Button
-                onClick={handleAwesomeClick}
-                className="w-full h-14 bg-gradient-to-r from-blue-600 to-[#C8102E] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 no-select text-lg"
-              >
-                {content.buttonText}
-              </Button>
-            </motion.div>
-          </div>
+          ) : (
+            <Gift className="w-8 h-8 text-white" />
+          )}
         </div>
-      </DialogContent>
-    </Dialog>
+        
+        {/* Box number */}
+        <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center text-xs font-bold text-gray-800">
+          {index + 1}
+        </div>
+      </motion.div>
+    );
+  };
+
+  return (
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="reward-popup quiz-card border-0 p-0 mx-auto">
+          <div className="relative">
+            {/* Confetti */}
+        
+
+            {/* Content */}
+            <div className="p-8 text-center relative z-10" dir={isArabic ? 'rtl' : 'ltr'}>
+              {/* Trophy Icon */}
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
+                className="mb-6"
+              >
+                <div className="w-24 h-24 bg-gradient-to-r from-blue-600 to-[#C8102E] rounded-full flex items-center justify-center mx-auto">
+                  <Trophy className="w-12 h-12 text-white" />
+                </div>
+              </motion.div>
+
+              {/* Success Message */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mb-6"
+              >
+                <h2 className="text-2xl font-bold text-white mb-4">
+                  {content.title}
+                </h2>
+                <p className="text-white/90 text-lg leading-relaxed mb-4">
+                  {content.message1}
+                </p>
+                <p className="text-white/80 text-base leading-relaxed mb-6">
+                  {content.message2}
+                </p>
+              </motion.div>
+
+              {/* Prize Unlock */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mb-8"
+              >
+                <div className="bg-gradient-to-r from-blue-600/20 to-[#C8102E]/20 rounded-xl p-4 border border-blue-600/30">
+                  <div className="flex items-center justify-center space-x-2 mb-2">
+                    <Star className="w-5 h-5 text-yellow-400" />
+                    <span className="text-white font-semibold">{content.prizeTitle}</span>
+                    <Star className="w-5 h-5 text-yellow-400" />
+                  </div>
+                  <p className="text-white/90 text-sm">
+                    {content.prizeText}
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Gift Boxes */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+                className="mb-6"
+              >
+                <div className="flex justify-center items-center gap-6 mb-4">
+                  {[0, 1, 2].map(renderGiftBox)}
+                </div>
+                <p className="text-white/70 text-sm">
+                  {content.selectBox}
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+             {/* Prize Popup */}
+ 
+
+             {/* <Confetti
+                   width={400}
+                   height={500}
+                   recycle={false}
+                   numberOfPieces={300}
+                   colors={['#8B5CF6', '#EC4899', '#F59E0B', '#10B981', '#3B82F6', '#C8102E', '#FFD700', '#FF69B4', '#00CED1']}
+                   gravity={0.2}
+                   wind={0.03}
+                   initialVelocityX={15}
+                   initialVelocityY={30}
+                   tweenDuration={3000}
+                   confettiSource={{
+                     x: 200,
+                     y: 100,
+                     w: 0,
+                     h: 0
+                   }}
+                 /> */}
+       <AnimatePresence>
+         {showPrizePopup && wonPrize && (
+           <Dialog open={showPrizePopup} onOpenChange={() => setShowPrizePopup(false)} style={{position:'absolute'}}>
+             <DialogContent className="reward-popup quiz-card border-0 p-0  mx-auto">
+               <div className="relative">
+                 {/* Confetti on Prize Popup */}
+                 {showPrizePopup && wonPrize && createPortal(
+  <div
+    style={{
+      position: 'fixed',
+      inset: 0,
+      zIndex: 2147483647, // top of the world
+      pointerEvents: 'none',
+    }}
+  >
+    <Confetti
+      width={window.innerWidth}
+      height={window.innerHeight}
+      recycle={false}
+      numberOfPieces={300}
+      colors={[
+        '#8B5CF6', '#EC4899', '#F59E0B',
+        '#10B981', '#3B82F6', '#C8102E',
+        '#FFD700', '#FF69B4', '#00CED1'
+      ]}
+      gravity={0.2}
+      wind={0.03}
+      initialVelocityX={15}
+      initialVelocityY={30}
+      tweenDuration={3000}
+      confettiSource={{
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+        w: 0,
+        h: 0,
+      }}
+    />
+  </div>,
+  document.body
+)}
+                 <div className="p-8 text-center relative z-10">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.5, type: "spring" }}
+                  className="mb-6"
+                >
+                  <div className="w-24 h-24 bg-gradient-to-r from-blue-600 to-[#C8102E] rounded-full flex items-center justify-center mx-auto">
+                    <wonPrize.icon className="w-12 h-12 text-white" />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="mb-6"
+                >
+                  <h2 className="text-2xl font-bold text-white mb-4">
+                    {content.youWin}
+                  </h2>
+                  <p className="text-white/90 text-xl font-semibold">
+                    {isArabic ? wonPrize.nameArabic : wonPrize.name}
+                  </p>
+                </motion.div>
+
+                                 <motion.div
+                   initial={{ opacity: 0, y: 20 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ duration: 0.6, delay: 0.4 }}
+                 >
+                   <Button
+                     onClick={handleAwesomeClick}
+                     className="w-full h-14 bg-gradient-to-r from-blue-600 to-[#C8102E] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 no-select text-lg"
+                   >
+                     {content.buttonText}
+                   </Button>
+                 </motion.div>
+               </div>
+             </div>
+           </DialogContent>
+         </Dialog>
+       )}
+     </AnimatePresence>
+    </>
   );
 }
