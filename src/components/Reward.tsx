@@ -325,34 +325,41 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                   </h2>
                                      <motion.p 
                                      className="text-3xl font-bold text-white"
-                    //  className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-white-500 to-pink-500 bg-clip-text text-transparent"
-                     initial={{ scale: 0, rotate: -180 }}
+
+                                     
+                    //  className="text-3xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent"
+                     initial={{ scale: 0, x: -10 }}
                      animate={{ 
-                       scale: [0, 1.2, 1],
-                       rotate: [-180, 0],
+                       scale: 1,
+                       x: [0, -2, 2, -2, 2, -1, 1, -1, 1, 0],
                        textShadow: [
-                        "0 0 20px rgba(255, 255, 255, 0.99)",
-                       "0 0 20px rgba(255, 255, 255, 0.99)",
-                       "0 0 20px rgba(255, 255, 255, 0.99)"
+                         "0 0 0px rgba(255, 215, 0, 0)",
+                         "0 0 10px rgba(255, 215, 0, 0.6)",
+                         "0 0 20px rgba(255, 215, 0, 0.8)",
+                         "0 0 30px rgba(255, 215, 0, 1)",
+                         "0 0 20px rgba(255, 215, 0, 0.8)",
+                         "0 0 10px rgba(255, 215, 0, 0.6)",
+                         "0 0 0px rgba(255, 215, 0, 0)"
                        ]
                      }}
                      transition={{ 
-                       duration: 1.5,
+                       duration: 2,
                        scale: {
-                         times: [0, 0.6, 1],
-                         duration: 1.5
+                         duration: 0.8
                        },
-                       rotate: {
-                         duration: 1.2
+                       x: {
+                         duration: 0.5,
+                         repeat: Infinity,
+                         repeatDelay: 1
                        },
                        textShadow: {
-                         duration: 2,
+                         duration: 3,
                          repeat: Infinity,
                          repeatType: "reverse"
                        }
                      }}
                      whileHover={{ 
-                       scale: 1.1,
+                       scale: 1.05,
                        transition: { duration: 0.2 }
                      }}
                    >
