@@ -14,6 +14,9 @@ import {
   quizQuestionsArabic
 } from '@/data/questions';
 
+// hooks/useViewport.ts
+import BackgroundVideo from '@/components/BackgroundVideo';
+
 export default function Home() {
   const [selectedLanguage, setSelectedLanguage] = useState<'english' | 'arabic' | null>(null);
   const [showIntro, setShowIntro] = useState(false);
@@ -90,9 +93,10 @@ export default function Home() {
     );
   };
   return (
-    <div className="min-h-screen w-full relative bg-transparent">
+    <div className={`min-h-screen w-full relative bg-transparent ${selectedLanguage === 'arabic' ? 'font-arabic' : 'font-english'}`}>
       {/* FULLSCREEN VIDEO BACKGROUND */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
+        {/* <BackgroundVideo/> */}
         <video
           autoPlay
           loop
