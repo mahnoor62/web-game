@@ -128,6 +128,9 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
     }, 2000);
   };
 
+  // Check if the won prize is a real winning prize
+  const isWinningPrize = wonPrize && (wonPrize.id === 'sun-shade' || wonPrize.id === 'bluetooth-speaker');
+
   const handleAwesomeClick = () => {
     setShowPrizePopup(false);
     onClose();
@@ -278,8 +281,8 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                        <Dialog open={showPrizePopup} onOpenChange={() => setShowPrizePopup(false)}>
               <DialogContent showCloseButton={false} className="reward-popup quiz-card border-0 p-0  mx-auto" style={{position:'absolute'}}>
                <div className="relative">
-                 {/* Confetti on Prize Popup */}
-                 {showPrizePopup && wonPrize && createPortal(
+                 {/* Confetti on Prize Popup - Only show for winning prizes */}
+                 {showPrizePopup && wonPrize && isWinningPrize && createPortal(
   <div
     style={{
       position: 'fixed',
@@ -332,7 +335,7 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                   className="mb-6"
                 >
                   <h2 className=" text-white/90   text-xl font-semibold text-white mb-4">
-                    {content.youWin}
+                    {isWinningPrize ? content.youWin : (isArabic ? 'حاول مرة أخرى' : 'Try Again')}
                   </h2>
                                      <motion.p 
                                      className="text-3xl font-bold text-white"
