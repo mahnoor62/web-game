@@ -137,6 +137,7 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
   const renderGiftBox = (index: number) => {
     const isOpened = openedBoxes.has(index);
     const isSelected = selectedBox === index;
+    const isAnyBoxSelected = selectedBox !== null; // Check if any box is selected
     
     return (
       <motion.div
@@ -144,13 +145,13 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
         initial={{ scale: 0, rotate: -180 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{ duration: 0.6, delay: index * 0.2, type: "spring", stiffness: 200 }}
-        whileHover={{ scale: isOpened ? 1 : 1.05 }}
-        whileTap={{ scale: isOpened ? 1 : 0.95 }}
-        className={`relative cursor-pointer ${isOpened ? 'pointer-events-none' : ''}`}
+        whileHover={{ scale: (isOpened || isAnyBoxSelected) ? 1 : 1.05 }}
+        whileTap={{ scale: (isOpened || isAnyBoxSelected) ? 1 : 0.95 }}
+        className={`relative ${(isOpened || isAnyBoxSelected) ? 'pointer-events-none' : 'cursor-pointer'}`}
         onClick={() => handleBoxClick(index)}
       >
         <div className={`w-20 h-20 bg-gradient-to-r from-blue-600 to-[#C8102E] rounded-xl flex items-center justify-center shadow-lg transition-all duration-300 ${
-          isOpened ? 'scale-110' : 'hover:shadow-xl'
+          isOpened ? 'scale-110' : isAnyBoxSelected ? 'opacity-50' : 'hover:shadow-xl'
         }`}>
           {isOpened && isSelected ? (
             <motion.div
