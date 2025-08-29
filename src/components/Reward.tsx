@@ -19,7 +19,7 @@ interface Prize {
   id: string;
   name: string;
   nameArabic: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
 }
 
 const prizes: Prize[] = [
@@ -47,7 +47,6 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
   const isArabic = language === 'arabic';
   const [selectedBox, setSelectedBox] = useState<number | null>(null);
   const [wonPrize, setWonPrize] = useState<Prize | null>(null);
-  const [showConfetti, setShowConfetti] = useState(false);
   const [showPrizePopup, setShowPrizePopup] = useState(false);
   const [openedBoxes, setOpenedBoxes] = useState<Set<number>>(new Set());
   const [boxPrizes, setBoxPrizes] = useState<Prize[]>([]);
@@ -74,7 +73,6 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
     if (isOpen) {
       setSelectedBox(null);
       setWonPrize(null);
-      setShowConfetti(false);
       setShowPrizePopup(false);
       setOpenedBoxes(new Set());
       
@@ -93,12 +91,10 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
     // Get the prize for this box
     const prize = boxPrizes[boxIndex];
     setWonPrize(prize);
-    setShowConfetti(true);
     
-    // Show prize popup after confetti
+    // Show prize popup after a short delay
     setTimeout(() => {
       setShowPrizePopup(true);
-      setShowConfetti(false);
     }, 2000);
   };
 
