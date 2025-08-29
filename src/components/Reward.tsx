@@ -88,16 +88,26 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
       setShowPrizePopup(false);
       setOpenedBoxes(new Set());
       
-      // Create a selection with 1 winning prize and 2 losing prizes (80% lose, 20% win)
+      // Create a selection with 99% chance to lose, 1% chance to win
       const winningPrizes = prizes.filter(prize => prize.id === 'sun-shade' || prize.id === 'bluetooth-speaker');
       const losingPrizes = prizes.filter(prize => prize.id !== 'sun-shade' && prize.id !== 'bluetooth-speaker');
       
-      // Randomly select 1 winning prize and 2 losing prizes
-      const selectedWinningPrize = [...winningPrizes].sort(() => Math.random() - 0.5).slice(0, 1);
-      const selectedLosingPrizes = [...losingPrizes].sort(() => Math.random() - 0.5).slice(0, 2);
+      // 99% chance to get all losing prizes, 1% chance to get 1 winning prize
+      const randomChance = Math.random();
+      let selectedPrizes;
       
-      // Combine and shuffle the selected prizes
-      const selectedPrizes = [...selectedWinningPrize, ...selectedLosingPrizes].sort(() => Math.random() - 0.5);
+      if (randomChance <= 0.01) { // 1% chance to win
+        // Select 1 winning prize and 2 losing prizes
+        const selectedWinningPrize = [...winningPrizes].sort(() => Math.random() - 0.5).slice(0, 1);
+        const selectedLosingPrizes = [...losingPrizes].sort(() => Math.random() - 0.5).slice(0, 2);
+        selectedPrizes = [...selectedWinningPrize, ...selectedLosingPrizes];
+      } else { // 99% chance to lose
+        // Select all 3 losing prizes
+        selectedPrizes = [...losingPrizes].sort(() => Math.random() - 0.5).slice(0, 3);
+      }
+      
+      // Shuffle the selected prizes
+      selectedPrizes = selectedPrizes.sort(() => Math.random() - 0.5);
       setBoxPrizes(selectedPrizes);
     }
   }, [isOpen]);
