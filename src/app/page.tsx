@@ -79,7 +79,13 @@ export default function Home() {
     }
     
     if (!showQuiz) {
-      return <BeforeYouBeginScreen onStart={handleStartQuiz} language={selectedLanguage} />;
+      return <Quiz 
+        goals={content.goals}
+        stages={content.stages}
+        questions={content.questions}
+        onReset={handleReset}
+        language={selectedLanguage}
+      />;
     }
     
     return (
