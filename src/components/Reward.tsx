@@ -88,20 +88,20 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
       setShowPrizePopup(false);
       setOpenedBoxes(new Set());
       
-      // Create a selection with 99% chance to lose, 1% chance to win
+      // Create a selection with 60% chance to lose, 40% chance to win
       const winningPrizes = prizes.filter(prize => prize.id === 'sun-shade' || prize.id === 'bluetooth-speaker');
       const losingPrizes = prizes.filter(prize => prize.id !== 'sun-shade' && prize.id !== 'bluetooth-speaker');
       
-      // 99% chance to get all losing prizes, 1% chance to get 1 winning prize
+      // 60% chance to get all losing prizes, 40% chance to get 1 winning prize
       const randomChance = Math.random();
       let selectedPrizes;
       
-      if (randomChance <= 0.01) { // 1% chance to win
+      if (randomChance <= 0.4) { // 40% chance to win
         // Select 1 winning prize and 2 losing prizes
         const selectedWinningPrize = [...winningPrizes].sort(() => Math.random() - 0.5).slice(0, 1);
         const selectedLosingPrizes = [...losingPrizes].sort(() => Math.random() - 0.5).slice(0, 2);
         selectedPrizes = [...selectedWinningPrize, ...selectedLosingPrizes];
-      } else { // 99% chance to lose
+      } else { // 60% chance to lose
         // Select all 3 losing prizes
         selectedPrizes = [...losingPrizes].sort(() => Math.random() - 0.5).slice(0, 3);
       }
