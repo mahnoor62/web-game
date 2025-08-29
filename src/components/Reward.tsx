@@ -88,16 +88,16 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
       setShowPrizePopup(false);
       setOpenedBoxes(new Set());
       
-      // Create a selection with 2 winning prizes and 1 losing prize
+      // Create a selection with 1 winning prize and 2 losing prizes (80% lose, 20% win)
       const winningPrizes = prizes.filter(prize => prize.id === 'sun-shade' || prize.id === 'bluetooth-speaker');
       const losingPrizes = prizes.filter(prize => prize.id !== 'sun-shade' && prize.id !== 'bluetooth-speaker');
       
-      // Randomly select 2 winning prizes and 1 losing prize
-      const selectedWinningPrizes = [...winningPrizes].sort(() => Math.random() - 0.5).slice(0, 2);
-      const selectedLosingPrize = [...losingPrizes].sort(() => Math.random() - 0.5).slice(0, 1);
+      // Randomly select 1 winning prize and 2 losing prizes
+      const selectedWinningPrize = [...winningPrizes].sort(() => Math.random() - 0.5).slice(0, 1);
+      const selectedLosingPrizes = [...losingPrizes].sort(() => Math.random() - 0.5).slice(0, 2);
       
       // Combine and shuffle the selected prizes
-      const selectedPrizes = [...selectedWinningPrizes, ...selectedLosingPrize].sort(() => Math.random() - 0.5);
+      const selectedPrizes = [...selectedWinningPrize, ...selectedLosingPrizes].sort(() => Math.random() - 0.5);
       setBoxPrizes(selectedPrizes);
     }
   }, [isOpen]);
