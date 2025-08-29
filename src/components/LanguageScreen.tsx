@@ -27,11 +27,11 @@ export function LanguageScreen({ onLanguageSelect }: LanguageScreenProps) {
           <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-[#C8102E] rounded-full flex items-center justify-center mx-auto mb-6">
             <Globe className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">
-            Choose Your Language
-          </h1>
-          <p className="text-white/80 text-lg">
+          <h1 className="text-4xl font-bold text-white mb-2">
             اختر لغتك المفضلة
+          </h1>
+          <p className="text-white/80 text-base">
+            Choose Your Language
           </p>
         </motion.div>
 
