@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Trophy, Star, Gift, Sun, Speaker, Package } from 'lucide-react';
+import { Trophy, Star, Gift, Sun, Speaker, Package, Glasses } from 'lucide-react';
 import Confetti from 'react-confetti';
 import { createPortal } from 'react-dom';
 interface RewardProps {
@@ -27,7 +27,7 @@ const prizes: Prize[] = [
     id: 'sun-shade',
     name: 'Sun Shade',
     nameArabic: 'مظلة شمسية',
-    icon: Sun
+    icon: Glasses
   },
   {
     id: 'bluetooth-speaker',
@@ -36,9 +36,21 @@ const prizes: Prize[] = [
     icon: Speaker
   },
   {
-    id: 'empty-box',
-    name: 'Empty Box',
-    nameArabic: 'صندوق فارغ',
+    id: 'better-luck',
+    name: 'Better luck next time',
+    nameArabic: 'حظ أوفر في المرة القادمة',
+    icon: Package
+  },
+  {
+    id: 'try-again',
+    name: 'Try again to win a prize',
+    nameArabic: 'حاول مرة أخرى للفوز بجائزة',
+    icon: Package
+  },
+  {
+    id: 'try-again-2',
+    name: 'Try again',
+    nameArabic: 'حاول مرة أخرى',
     icon: Package
   }
 ];
@@ -76,9 +88,17 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
       setShowPrizePopup(false);
       setOpenedBoxes(new Set());
       
-      // Randomly assign prizes to boxes
-      const shuffledPrizes = [...prizes].sort(() => Math.random() - 0.5);
-      setBoxPrizes(shuffledPrizes);
+      // Create a selection with 2 winning prizes and 1 losing prize
+      const winningPrizes = prizes.filter(prize => prize.id === 'sun-shade' || prize.id === 'bluetooth-speaker');
+      const losingPrizes = prizes.filter(prize => prize.id !== 'sun-shade' && prize.id !== 'bluetooth-speaker');
+      
+      // Randomly select 2 winning prizes and 1 losing prize
+      const selectedWinningPrizes = [...winningPrizes].sort(() => Math.random() - 0.5).slice(0, 2);
+      const selectedLosingPrize = [...losingPrizes].sort(() => Math.random() - 0.5).slice(0, 1);
+      
+      // Combine and shuffle the selected prizes
+      const selectedPrizes = [...selectedWinningPrizes, ...selectedLosingPrize].sort(() => Math.random() - 0.5);
+      setBoxPrizes(selectedPrizes);
     }
   }, [isOpen]);
 
@@ -303,9 +323,41 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                   <h2 className=" text-white/90   text-xl font-semibold text-white mb-4">
                     {content.youWin}
                   </h2>
-                  <p className=" text-2xl font-bold ">
-                    {isArabic ? wonPrize.nameArabic : wonPrize.name}
-                  </p>
+                                     <motion.p 
+                                     className="text-3xl font-bold text-white"
+                    //  className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-white-500 to-pink-500 bg-clip-text text-transparent"
+                     initial={{ scale: 0, rotate: -180 }}
+                     animate={{ 
+                       scale: [0, 1.2, 1],
+                       rotate: [-180, 0],
+                       textShadow: [
+                        "0 0 20px rgba(255, 255, 255, 0.99)",
+                       "0 0 20px rgba(255, 255, 255, 0.99)",
+                       "0 0 20px rgba(255, 255, 255, 0.99)"
+                       ]
+                     }}
+                     transition={{ 
+                       duration: 1.5,
+                       scale: {
+                         times: [0, 0.6, 1],
+                         duration: 1.5
+                       },
+                       rotate: {
+                         duration: 1.2
+                       },
+                       textShadow: {
+                         duration: 2,
+                         repeat: Infinity,
+                         repeatType: "reverse"
+                       }
+                     }}
+                     whileHover={{ 
+                       scale: 1.1,
+                       transition: { duration: 0.2 }
+                     }}
+                   >
+                     {isArabic ? wonPrize.nameArabic : wonPrize.name}
+                   </motion.p>
                 </motion.div>
 
                                  <motion.div
