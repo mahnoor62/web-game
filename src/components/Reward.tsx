@@ -37,14 +37,16 @@ const prizes: Prize[] = [
   },
   {
     id: 'better-luck',
-    name: 'Better luck next time',
-    nameArabic: 'حظ أوفر في المرة القادمة',
+    name: 'Better luck next time​ Awesome',
+    nameArabic: 'حظـاً أوفر في المرة القادمـة​\nرائـع!',
+    
     icon: Package
   },
   {
     id: 'try-again',
-    name: 'Try again to win a prize',
-    nameArabic: 'حاول مرة أخرى للفوز بجائزة',
+    name: 'Bettr luck next time !Awesome',
+    nameArabic: 'حظـاً أوفر في المرة القادمـة​\nرائـع!',
+
     icon: Package
   },
   {
@@ -73,7 +75,8 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
         : 'National Finance is here to help make your dreams come true.',
     prizeTitle: isArabic ? 'تهانينا!' : 'Congratulations!',
     prizeText: isArabic ? 'اكتشف جائزتك الآن.' : 'Unlock your prize now.',
-    buttonText: isArabic ? 'رائع!' : 'Awesome!',
+    // buttonText: isArabic ? 'رائع!' : 'Awesome!',
+    buttonText: isArabic ? '!رائع' : 'Awesome!',
     youWin: isArabic 
         ? `لقد ربحت ${userName || ''}` 
         : `You win ${userName || ''}`,

@@ -54,7 +54,10 @@ export function Question({
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-8"
         >
-          <h2 className="text-2xl font-bold text-white mb-6 text-center">
+          <h2 
+            className="text-2xl font-bold text-white mb-6 text-center"
+            style={isArabic ? { wordSpacing: '0.3em' } : {}}
+          >
             {question.question}
           </h2>
         </motion.div>
@@ -64,30 +67,62 @@ export function Question({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="space-y-3 mb-8"
+          className="space-y-2 mb-8"
         >
           {question.options.map((option, index) => (
             <motion.button
-              key={option.id}
-              onClick={() => onAnswerSelect(option.id)}
-              className={`w-full p-4 rounded-xl border-2 transition-all duration-200 text-left flex items-center space-x-3 no-select ${
+            key={option.id}
+            onClick={() => onAnswerSelect(option.id)}
+            className={`w-full p-4 rounded-xl border-2 transition-all duration-200 flex items-center no-select
+              ${isArabic ? 'flex-row-reverse text-right' : 'flex-row text-left'}
+              ${
                 selectedAnswer === option.id
                   ? 'border-blue-600 bg-blue-600/20 shadow-lg'
                   : 'border-white/30 bg-white/10 hover:bg-white/20 hover:border-white/50'
               }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              initial={{ opacity: 0, x: isArabic ? 20 : -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, x: isArabic ? 20 : -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+          >
+            
+            <span 
+              className="text-white font-medium flex-1"
+              style={isArabic ? { wordSpacing: '0.3em' } : {}}
             >
-              {selectedAnswer === option.id ? (
-                <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
-              ) : (
-                <Circle className="w-5 h-5 text-white/60 flex-shrink-0" />
-              )}
-              <span className="text-white font-medium">{option.text}</span>
-            </motion.button>
+              {option.text}
+            </span>
+            {selectedAnswer === option.id ? (
+              <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 ml-3" />
+            ) : (
+              <Circle className="w-5 h-5 text-white/60 flex-shrink-0 ml-3" />
+            )}
+          </motion.button>
+          
+            // <motion.button
+            //   key={option.id}
+            //   onClick={() => onAnswerSelect(option.id)}
+            //   className={`w-full p-4 rounded-xl border-2 transition-all duration-200 flex items-center no-select ${
+            //     isArabic ? 'text-right flex-row-reverse space-x-reverse space-x-3' : 'text-left flex-row-reverse space-x-reverse space-x-3'
+            //   } ${
+            //     selectedAnswer === option.id
+            //       ? 'border-blue-600 bg-blue-600/20 shadow-lg'
+            //       : 'border-white/30 bg-white/10 hover:bg-white/20 hover:border-white/50'
+            //   }`}
+            //   whileHover={{ scale: 1.02 }}
+            //   whileTap={{ scale: 0.98 }}
+            //   initial={{ opacity: 0, x: isArabic ? 20 : -20 }}
+            //   animate={{ opacity: 1, x: 0 }}
+            //   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+            // >
+            //   {selectedAnswer === option.id ? (
+            //     <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
+            //   ) : (
+            //     <Circle className="w-5 h-5 text-white/60 flex-shrink-0" />
+            //   )}
+            //   <span className={`text-white font-medium flex-1 ${isArabic ? 'text-right' : 'text-right'}`}>{option.text}</span>
+            // </motion.button>
           ))}
         </motion.div>
 

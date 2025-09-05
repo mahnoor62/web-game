@@ -215,7 +215,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'branch-only',
         text: 'I\'ll visit the branch only',
-        feedback: 'You\'re always welcome! But for convenience, try sending your documents via WhatsApp at 92576777! It saves time and effort.'
+        feedback: 'You\'re always welcome! But for convenience, try sending your documents via WhatsApp at 92576777 It saves time and effort.'
       },
       {
         id: 'whatsapp',
@@ -372,7 +372,7 @@ export const quizQuestionsArabic: QuizQuestion[] = [
     options: [
       {
         id: 'stores',
-        text: 'أذهب مباشرةً إلى محلات الاثاث',
+        text: 'أذهب مباشرةً إلى محلات الأثاث',
         feedback: 'خطوة متوقعة! ولكن من الأفضل تحديد الميزانية مسبقًا لتتمكن من اختيار الاثاث المتناسب مع ميزانيتك.'
       },
       {
@@ -382,7 +382,7 @@ export const quizQuestionsArabic: QuizQuestion[] = [
       },
       {
         id: 'furnish-first',
-        text: 'أثّث منزلك بأناقة، ثم فكّر في التمويل',
+        text:'أقوم بتأثيث منزلي ثم أبحث عن التمويل​',
         feedback: 'تجربة رائعة! ومع ذلك، تحديد ميزانية واضحة أولًا يساعدك على اختيار الأثاث المناسب دون قلق على التزاماتك المالية.'
       }
     ]
@@ -407,7 +407,7 @@ export const quizQuestionsArabic: QuizQuestion[] = [
       },
       {
         id: 'grow-first',
-        text: 'انمِّ مشروعي بخطوة جريئة، ثم اخطط للتمويل',
+        text: 'أُنَــــمّي مشروعي بخطوة جريئة، ثم أخطــط للتمويل',
         feedback: 'تجربة ملهمة! ومع ميزانية مدروسة مسبقًا، يصبح التوسع أسهل وأكثر أمانًا.'
       }
     ]
@@ -451,7 +451,7 @@ export const quizQuestionsArabic: QuizQuestion[] = [
       {
         id: '24-months',
         text: '24 شهرًا',
-        feedback: 'رائع! خيار موّزون يمنحك مرونة جيدة ويجعل أقساطك الشهرية أخف.'
+        feedback: 'رائع! خيار مـوزون يمنحك مرونة جيدة ويجعل أقساطك الشهرية أخف.'
       },
       {
         id: '120-months',
@@ -494,7 +494,7 @@ export const quizQuestionsArabic: QuizQuestion[] = [
       {
         id: 'read-terms',
         text: 'أقرأ الشروط والتفاصيل كاملة',
-        feedback: 'أحسنت! هذا هو جوهر التمويل المسؤول، وتضمن لك اتخاذ قرار واعٍ ومسؤول.'
+        feedback: 'أحسنت! هذا هو جوهر التمويل المسؤول،ويضمن لك اتخاذ قرار واعٍ ومسؤول.'
       },
       {
         id: 'trust-sign',

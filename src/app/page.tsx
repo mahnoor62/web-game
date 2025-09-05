@@ -35,6 +35,14 @@ export default function Home() {
     setShowBeforeBegin(true);
   };
 
+  const handleBackToIntro = () => {
+    setShowBeforeBegin(false);
+  };
+
+  const handleBackToLanguage = () => {
+    setShowIntro(false);
+  };
+
   const handleStartQuiz = () => {
     setShowQuiz(true);
   };
@@ -71,11 +79,11 @@ export default function Home() {
     }
     
     if (!showIntro) {
-      return <IntroScreen onStart={handleStartIntro} language={selectedLanguage} />;
+      return <IntroScreen onStart={handleStartIntro} onBack={handleBackToLanguage} language={selectedLanguage} />;
     }
     
     if (!showBeforeBegin) {
-      return <BeforeYouBeginScreen onStart={handleStartBeforeBegin} language={selectedLanguage} />;
+      return <BeforeYouBeginScreen onStart={handleStartBeforeBegin} onBack={handleBackToIntro} language={selectedLanguage} />;
     }
     
     if (!showQuiz) {

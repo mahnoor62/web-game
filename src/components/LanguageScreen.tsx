@@ -25,10 +25,16 @@ export function LanguageScreen({ onLanguageSelect }: LanguageScreenProps) {
           className="mb-8"
         >
           <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-[#C8102E] rounded-full flex items-center justify-center mx-auto mb-6">
-            <Globe className="w-10 h-10 text-white" />
+          <img 
+    src="/logo.png"   // place your logo inside public folder
+    alt="Logo"
+    className="w-50 h-50 object-contain"
+  />
+            {/* <Globe className="w-10 h-10 text-white" /> */}
           </div>
           <h1 className="text-4xl font-bold text-white mb-2">
-            اختر لغتك المفضلة
+            اختر لغتك 
+            {/* اختر لغتك المفضلة */}
           </h1>
           <p className="text-white/80 text-base">
             Choose Your Language
@@ -46,7 +52,7 @@ export function LanguageScreen({ onLanguageSelect }: LanguageScreenProps) {
             onClick={() => onLanguageSelect('english')}
             className="w-full h-16 bg-gradient-to-r from-blue-600 to-[#C8102E] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 no-select text-lg border-2 border-white/20"
           >
-            <Languages className="w-5 h-5 mr-3" />
+            {/* <Languages className="w-5 h-5 mr-3" /> */}
             English
           </Button>
           
@@ -54,7 +60,7 @@ export function LanguageScreen({ onLanguageSelect }: LanguageScreenProps) {
             onClick={() => onLanguageSelect('arabic')}
             className="w-full h-16 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl border-2 border-white/30 hover:bg-white/20 transition-all duration-200 hover:scale-105 no-select text-lg"
           >
-            <Languages className="w-5 h-5 mr-3" />
+            {/* <Languages className="w-5 h-5 mr-3" /> */}
             العربية
           </Button>
         </motion.div>
