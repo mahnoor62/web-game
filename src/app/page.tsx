@@ -36,11 +36,16 @@ export default function Home() {
   };
 
   const handleBackToIntro = () => {
+    setShowIntro(false);
     setShowBeforeBegin(false);
+    setShowQuiz(false);
   };
 
   const handleBackToLanguage = () => {
+    setSelectedLanguage(null);
     setShowIntro(false);
+    setShowBeforeBegin(false);
+    setShowQuiz(false);
   };
 
   const handleStartQuiz = () => {
