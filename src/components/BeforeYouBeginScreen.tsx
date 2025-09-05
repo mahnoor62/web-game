@@ -139,15 +139,17 @@ export function BeforeYouBeginScreen({ onStart, onBack, language }: BeforeYouBeg
   const isArabic = language === 'arabic';
   
   const content = {
-    title: isArabic ? 'تمهيد قبل الانطلاق' : 'Before You Begin',
+    // title: isArabic ? 'تمهيد قبل الانطلاق' : 'Before You Begin',
+    title: isArabic ? 'قبل أن تبدأ التحدي، تذكّر أن نجاحك يبدأ بخطوات واثقة ومدروسة!' : 'Before diving in, remember, success starts with confident steps',
     buttonText: isArabic ? 'ابدأ رحلتك' : 'Start Your Journey',
     backButtonText: isArabic ? 'العودة' : 'Back',
     tips: isArabic ? [
-      'قبل أن تبدأ التحدي، تذكّر أن نجاحك يبدأ بخطوات واثقة ومدروسة!',
+      // 'قبل أن تبدأ التحدي، تذكّر أن نجاحك يبدأ بخطوات واثقة ومدروسة!',
+      // 'قبل أن تبدأ التحدي، تذكّر أن نجاحك يبدأ بخطوات واثقة ومدروسة!',
       'اختر التمويل الأنسب لخططك المالية.',
       'اطّلع على كافة التكاليف والشروط.'
     ] : [
-      'Before diving in, remember, success starts with confident steps',
+      // 'Before diving in, remember, success starts with confident steps',
       'Choose the financing option that suits your goals.',
       'Make sure you\'re aware of all costs and conditions.'
     ]
@@ -190,10 +192,12 @@ export function BeforeYouBeginScreen({ onStart, onBack, language }: BeforeYouBeg
                 transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
                 className={`flex items-start ${isArabic ? 'flex-row-reverse space-x-reverse space-x-3 text-right' : 'space-x-3 text-left'}`}
               >
-                <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                
+                <CheckCircle className="w-5 h-5 text-blue-600 mt-2 flex-shrink-0 ml-auto" />
                 <p className={`text-white/90 text-lg leading-relaxed ${isArabic ? 'text-right' : 'text-left'}`}>
                   {tip}
                 </p>
+              
               </motion.div>
             ))}
           </div>

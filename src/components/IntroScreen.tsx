@@ -50,9 +50,9 @@ export function IntroScreen({ onStart, onBack, language }: IntroScreenProps) {
     className="w-50 h-50 object-contain"
   />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-4">
+          {/* <h1 className="text-3xl font-bold text-white mb-4">
             {content.title}
-          </h1>
+          </h1> */}
           <h2 className="text-xl font-semibold text-white/90 mb-6">
             {content.subtitle}
           </h2>

@@ -37,14 +37,14 @@ const prizes: Prize[] = [
   },
   {
     id: 'better-luck',
-    name: 'Better luck next time​ Awesome',
+    name: 'Better luck next time!\nAwesome',
     nameArabic: 'حظـاً أوفر في المرة القادمـة​\nرائـع!',
     
     icon: Package
   },
   {
     id: 'try-again',
-    name: 'Bettr luck next time !Awesome',
+    name: 'Better luck next time!\nAwesome',
     nameArabic: 'حظـاً أوفر في المرة القادمـة​\nرائـع!',
 
     icon: Package
@@ -209,13 +209,13 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="mb-6"
               >
-                <h2 className="text-2xl font-bold text-white mb-4">
+                <h2 className={`text-2xl font-bold text-white mb-4 ${isArabic ? 'font-arabic' : ''}`}>
                   {content.title}
                 </h2>
-                <p className="text-white/90 text-lg leading-relaxed mb-4">
+                <p className={`text-white/90 text-lg leading-relaxed mb-4 ${isArabic ? 'font-arabic' : ''}`}>
                   {content.message1}
                 </p>
-                <p className="text-white/80 text-base leading-relaxed mb-6">
+                <p className={`text-white/80 text-base leading-relaxed mb-6 ${isArabic ? 'font-arabic' : ''}`}>
                   {content.message2}
                 </p>
               </motion.div>
@@ -230,10 +230,10 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                 <div className="bg-gradient-to-r from-blue-600/20 to-[#C8102E]/20 rounded-xl p-4 border border-blue-600/30">
                   <div className="flex items-center justify-center space-x-2 mb-2">
                     <Star className="w-5 h-5 text-yellow-400" />
-                    <span className="text-white font-semibold">{content.prizeTitle}</span>
+                    <span className={`text-white font-semibold ${isArabic ? 'font-arabic' : ''}`}>{content.prizeTitle}</span>
                     <Star className="w-5 h-5 text-yellow-400" />
                   </div>
-                  <p className="text-white/90 text-sm">
+                  <p className={`text-white/90 text-sm ${isArabic ? 'font-arabic' : ''}`}>
                     {content.prizeText}
                   </p>
                 </div>
@@ -249,7 +249,7 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                 <div className="flex justify-center items-center gap-6 mb-4">
                   {[0, 1, 2].map(renderGiftBox)}
                 </div>
-                <p className="text-white/70 text-sm">
+                <p className={`text-white/70 text-sm ${isArabic ? 'font-arabic' : ''}`}>
                   {content.selectBox}
                 </p>
               </motion.div>
@@ -337,11 +337,11 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="mb-6"
                 >
-                  <h2 className=" text-white/90   text-xl font-semibold text-white mb-4">
+                  <h2 className={`text-white/90 text-xl font-semibold text-white mb-4 ${isArabic ? 'font-arabic' : ''}`}>
                     {isWinningPrize ? content.youWin : (isArabic ? 'حاول مرة أخرى' : 'Try Again')}
                   </h2>
                                      <motion.p 
-                                     className="text-3xl font-bold text-white"
+                                     className={`text-3xl font-bold text-white ${isArabic ? 'font-arabic' : ''}`}
 
                                      
                     //  className="text-3xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent"
@@ -391,7 +391,7 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                  >
                    <Button
                      onClick={handleAwesomeClick}
-                     className="w-full h-14 bg-gradient-to-r from-blue-600 to-[#C8102E] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 no-select text-lg"
+                     className={`w-full h-14 bg-gradient-to-r from-blue-600 to-[#C8102E] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 no-select text-lg ${isArabic ? 'font-arabic' : ''}`}
                    >
                      {content.buttonText}
                    </Button>

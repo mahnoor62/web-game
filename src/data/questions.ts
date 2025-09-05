@@ -142,18 +142,18 @@ export const quizQuestions: QuizQuestion[] = [
     options: [
       {
         id: 'expand-first',
-        text: 'I started expanding right away',
-        feedback: 'A predictable step! However, it\'s better to set a budget in advance so you can choose the right financing plan that supports your business growth with comfort and financial security.'
+        text: 'I head straight to the dealership',
+        feedback: 'Expected move! But, it\'s better to set your budget first so you can pick the right car with a comfortable repayment plan.'
       },
       {
         id: 'budget',
-        text: 'I set my budget',
-        feedback: 'Excellent! A smart step that reflects your responsibility — defining your budget from the start, gives you greater financial peace of mind.'
+        text: 'I define my budget',
+        feedback: 'Smart move! Setting your budget from the start shows you’re financially responsible and helps you stay in control.'
       },
       {
         id: 'grow-first',
-        text: 'Grow my business with a bold step, then plan for financing',
-        feedback: 'An inspiring experience! And with a well-prepared budget in advance, expansion becomes easier and more secure.'
+        text: 'I buy the car, then look for financing',
+        feedback: 'That’s bold! But setting your budget first ensures the financing matches your financial plans.'
       }
     ]
   },

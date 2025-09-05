@@ -32,7 +32,7 @@ export function LanguageScreen({ onLanguageSelect }: LanguageScreenProps) {
   />
             {/* <Globe className="w-10 h-10 text-white" /> */}
           </div>
-          <h1 className="text-4xl font-bold text-white mb-2">
+          <h1 className="text-4xl font-bold text-white mb-2 font-arabic">
             اختر لغتك 
             {/* اختر لغتك المفضلة */}
           </h1>
@@ -58,7 +58,7 @@ export function LanguageScreen({ onLanguageSelect }: LanguageScreenProps) {
           
           <Button
             onClick={() => onLanguageSelect('arabic')}
-            className="w-full h-16 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl border-2 border-white/30 hover:bg-white/20 transition-all duration-200 hover:scale-105 no-select text-lg"
+            className="w-full h-16 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl border-2 border-white/30 hover:bg-white/20 transition-all duration-200 hover:scale-105 no-select text-lg font-arabic"
           >
             {/* <Languages className="w-5 h-5 mr-3" /> */}
             العربية
