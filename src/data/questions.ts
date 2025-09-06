@@ -92,7 +92,7 @@ export const quizQuestions: QuizQuestion[] = [
     options: [
       {
         id: 'dealership',
-        text: 'I started expanding right away',
+        text: 'I head straight to the dealership',
         feedback: 'A predictable step! However, it’s better to set a budget in advance so you can choose the right financing plan that supports your business growth with comfort and financial security.'
       },
       {
