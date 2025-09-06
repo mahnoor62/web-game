@@ -17,6 +17,7 @@ interface QuestionProps {
   language: 'english' | 'arabic';
 }
 
+
 export function Question({
   question,
   selectedAnswer,
@@ -147,16 +148,14 @@ export function Question({
           transition={{ duration: 0.6, delay: 0.5 }}
           className="flex space-x-4"
         >
-          {!isFirst && (
-            <Button
-              onClick={onBack}
-              variant="outline"
-              className="flex-1 h-12 border-white/30 text-white hover:bg-white/10 no-select"
-            >
-              <ArrowLeft className={`w-4 h-4 ${isArabic ? 'ml-2 rotate-180' : 'mr-2'}`} />
-              {buttonText.back}
-            </Button>
-          )}
+          <Button
+            onClick={onBack}
+            variant="outline"
+            className="flex-1 h-12 border-white/30 text-white hover:bg-white/10 no-select"
+          >
+            <ArrowLeft className={`w-4 h-4 ${isArabic ? 'ml-2 rotate-180' : 'mr-2'}`} />
+            {buttonText.back}
+          </Button>
           
           <Button
             onClick={onNext}

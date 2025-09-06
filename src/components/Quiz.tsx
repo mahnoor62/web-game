@@ -19,10 +19,11 @@ interface QuizProps {
   stages: QuizStage[];
   questions: QuizQuestion[];
   onReset: () => void;
+  onBackToBeforeBegin: () => void;
   language: 'english' | 'arabic';
 }
 
-export function Quiz({ goals, stages, questions, onReset, language }: QuizProps) {
+export function Quiz({ goals, stages, questions, onReset, onBackToBeforeBegin, language }: QuizProps) {
   const [currentStage, setCurrentStage] = useState(0);
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -91,13 +92,24 @@ export function Quiz({ goals, stages, questions, onReset, language }: QuizProps)
   };
 
   const handleBack = () => {
-    if (isFirst) return;
+    if (isFirst) {
+      // If it's the first question, go back to Before You Begin screen
+      onBackToBeforeBegin();
+      return;
+    }
     setCurrentStage(prev => prev - 1);
     setShowFeedback(false);
   };
 
   const handleRewardClose = () => {
     setShowReward(false);
+  };
+
+  const handleRewardBack = () => {
+    setShowReward(false);
+    // Go back to the last question
+    setCurrentStage(stages.length - 1);
+    setShowFeedback(false);
   };
 
   if (!currentQuestion) {
@@ -131,6 +143,7 @@ export function Quiz({ goals, stages, questions, onReset, language }: QuizProps)
         isOpen={showReward}
         onClose={handleRewardClose}
         onReset={onReset}
+        onBack={handleRewardBack}
         language={language}
       />
     </div>

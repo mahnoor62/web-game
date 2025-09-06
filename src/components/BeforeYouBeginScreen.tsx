@@ -193,11 +193,11 @@ export function BeforeYouBeginScreen({ onStart, onBack, language }: BeforeYouBeg
                 className={`flex items-start ${isArabic ? 'flex-row-reverse space-x-reverse space-x-3 text-right' : 'space-x-3 text-left'}`}
               >
                 
-                <CheckCircle className="w-5 h-5 text-blue-600 mt-2 flex-shrink-0 ml-auto" />
+            
                 <p className={`text-white/90 text-lg leading-relaxed ${isArabic ? 'text-right' : 'text-left'}`}>
                   {tip}
                 </p>
-              
+                <CheckCircle className="w-5 h-5 text-blue-600 mt-2 flex-shrink-0 ml-auto" />
               </motion.div>
             ))}
           </div>
@@ -212,12 +212,21 @@ export function BeforeYouBeginScreen({ onStart, onBack, language }: BeforeYouBeg
 >
   {/* Back */}
   <Button
+              onClick={onBack}
+              variant="outline"
+              className="flex-1 h-12 border-white/30 text-white bg-gradient-to-r from-blue-600 to-[#C8102E] 
+               text-white hover:bg-white/10 no-select"
+            >
+              <ArrowLeft className={`w-4 h-4 ${isArabic ? 'ml-2 rotate-180' : 'mr-2'}`} />
+              {content.backButtonText}
+            </Button>
+  {/* <Button
     onClick={onBack}
     className="flex-1 h-14 bg-gradient-to-r from-blue-600 to-[#C8102E] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 no-select text-lg"
   >
     <ArrowLeft className={`w-5 h-5 ${isArabic ? 'ml-2 rotate-180' : 'mr-2'}`} />
     {content.backButtonText}
-  </Button>
+  </Button> */}
 
   {/* Start */}
   <Button

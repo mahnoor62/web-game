@@ -35,6 +35,12 @@ export default function Home() {
     setShowBeforeBegin(true);
   };
 
+  const handleBackToBeforeBeginFromQuiz = () => {
+    setShowQuiz(false);
+    // Keep showBeforeBegin true so we can go back to it
+    setShowBeforeBegin(true);
+  };
+
   const handleBackToIntro = () => {
     setShowIntro(false);
     setShowBeforeBegin(false);
@@ -57,6 +63,12 @@ export default function Home() {
     setShowIntro(false);
     setShowBeforeBegin(false);
     setShowQuiz(false);
+  };
+
+  const handleBackToBeforeBegin = () => {
+    setShowQuiz(false);
+    // Ensure showBeforeBegin stays true so we can go back to it
+    setShowBeforeBegin(true);
   };
 
   // Get content based on selected language
@@ -97,6 +109,7 @@ export default function Home() {
         stages={content.stages}
         questions={content.questions}
         onReset={handleReset}
+        onBackToBeforeBegin={handleBackToBeforeBeginFromQuiz}
         language={selectedLanguage}
       />;
     }
@@ -107,6 +120,7 @@ export default function Home() {
         stages={content.stages}
         questions={content.questions}
         onReset={handleReset}
+        onBackToBeforeBegin={handleBackToBeforeBeginFromQuiz}
         language={selectedLanguage}
       />
     );

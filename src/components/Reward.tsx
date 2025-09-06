@@ -11,6 +11,7 @@ interface RewardProps {
   isOpen: boolean;
   onClose: () => void;
   onReset: () => void;
+  onBack?: () => void;
   language: 'english' | 'arabic';
   userName?: string;
 }
@@ -38,14 +39,16 @@ const prizes: Prize[] = [
   {
     id: 'better-luck',
     name: 'Better luck next time!\nAwesome',
-    nameArabic: 'حظـاً أوفر في المرة القادمـة​\nرائـع!',
+    // nameArabic: 'حظـاً أوفر في المرة القادمـة​\nرائـع!',
+    nameArabic: '',
     
     icon: Package
   },
   {
     id: 'try-again',
     name: 'Better luck next time!\nAwesome',
-    nameArabic: 'حظـاً أوفر في المرة القادمـة​\nرائـع!',
+    nameArabic: '',
+    // nameArabic: 'حظـاً أوفر في المرة القادمـة​\nرائـع!',
 
     icon: Package
   },
@@ -57,7 +60,7 @@ const prizes: Prize[] = [
   }
 ];
 
-export function Reward({ isOpen, onClose, onReset, language, userName }: RewardProps) {
+export function Reward({ isOpen, onClose, onReset, onBack, language, userName }: RewardProps) {
   const isArabic = language === 'arabic';
   const [selectedBox, setSelectedBox] = useState<number | null>(null);
   const [wonPrize, setWonPrize] = useState<Prize | null>(null);
@@ -76,11 +79,12 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
     prizeTitle: isArabic ? 'تهانينا!' : 'Congratulations!',
     prizeText: isArabic ? 'اكتشف جائزتك الآن.' : 'Unlock your prize now.',
     // buttonText: isArabic ? 'رائع!' : 'Awesome!',
-    buttonText: isArabic ? '!رائع' : 'Awesome!',
+    buttonText: isArabic ? '!رجوع' : 'Awesome!',
     youWin: isArabic 
         ? `لقد ربحت ${userName || ''}` 
         : `You win ${userName || ''}`,
-    selectBox: isArabic ? 'اختر صندوقًا' : 'Select a box'
+    selectBox: isArabic ? 'اختر صندوقًا' : 'Select a box',
+    backButton: isArabic ? 'السابق' : 'Back'
   };
 
   // Initialize random prizes for boxes when dialog opens
@@ -183,13 +187,34 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent   showCloseButton={false} className="reward-popup quiz-card border-0 p-0 mx-auto">
+        <DialogContent   showCloseButton={false} className="reward-popup quiz-card border-0 p-0 mx-auto max-w-2xl w-[90vw] h-[100vh] max-h-[1300px] bg-black/95">
           <div className="relative">
+            {/* Back Button */}
+            {onBack && (
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                onClick={onBack}
+                className={`absolute top-4 ${isArabic ? 'right-4' : 'left-4'} z-20 flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all duration-200 ${isArabic ? 'font-arabic' : ''}`}
+              >
+                <svg 
+                  className={`w-4 h-4 ${isArabic ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                <span className="text-sm font-medium">{content.backButton}</span>
+              </motion.button>
+            )}
+
             {/* Confetti */}
-        
+
 
             {/* Content */}
-            <div className="p-8 text-center relative z-10" dir={isArabic ? 'rtl' : 'ltr'}>
+            <div className="p-8 text-center relative z-10 flex flex-col items-center justify-center h-full min-h-[400px]" dir={isArabic ? 'rtl' : 'ltr'}>
               {/* Trophy Icon */}
               <motion.div
                 initial={{ scale: 0, rotate: -180 }}
@@ -282,7 +307,7 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
        <AnimatePresence>
          {showPrizePopup && wonPrize && (
                        <Dialog open={showPrizePopup} onOpenChange={() => setShowPrizePopup(false)}>
-              <DialogContent showCloseButton={false} className="reward-popup quiz-card border-0 p-0  mx-auto" style={{position:'absolute'}}>
+              <DialogContent showCloseButton={false} className="reward-popup quiz-card border-0 p-0 mx-auto max-w-2xl w-[90vw] h-[100vh] max-h-[1300px] bg-black/95" style={{position:'absolute'}}>
                <div className="relative">
                  {/* Confetti on Prize Popup - Only show for winning prizes */}
                  {showPrizePopup && wonPrize && isWinningPrize && createPortal(
@@ -319,7 +344,7 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
   </div>,
   document.body
 )}
-                 <div className="p-8 text-center relative z-10">
+                 <div className="p-8 text-center relative z-10 flex flex-col items-center justify-center h-full min-h-[400px]">
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -388,6 +413,7 @@ export function Reward({ isOpen, onClose, onReset, language, userName }: RewardP
                    initial={{ opacity: 0, y: 20 }}
                    animate={{ opacity: 1, y: 0 }}
                    transition={{ duration: 0.6, delay: 0.4 }}
+                   className="w-full"
                  >
                    <Button
                      onClick={handleAwesomeClick}
