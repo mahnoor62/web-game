@@ -192,12 +192,17 @@ export function BeforeYouBeginScreen({ onStart, onBack, language }: BeforeYouBeg
                 transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
                 className={`flex items-start ${isArabic ? 'flex-row-reverse space-x-reverse space-x-3 text-right' : 'space-x-3 text-left'}`}
               >
-                
+                 {!isArabic && (
+      <CheckCircle className="w-5 h-5 text-blue-600 mt-2 flex-shrink-0" />
+    )}
             
                 <p className={`text-white/90 text-lg leading-relaxed ${isArabic ? 'text-right' : 'text-left'}`}>
                   {tip}
                 </p>
-                <CheckCircle className="w-5 h-5 text-blue-600 mt-2 flex-shrink-0 ml-auto" />
+                {isArabic && (
+      <CheckCircle className="w-5 h-5 text-blue-600 mt-2 flex-shrink-0 ml-auto" />
+    )}
+                {/* <CheckCircle className="w-5 h-5 text-blue-600 mt-2 flex-shrink-0 ml-auto" /> */}
               </motion.div>
             ))}
           </div>
