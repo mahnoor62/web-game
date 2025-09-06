@@ -146,7 +146,7 @@ export function Question({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex space-x-4"
+          className={`flex ${isArabic ? 'space-x-reverse space-x-4' : 'space-x-4'}`}
         >
           <Button
             onClick={onBack}
