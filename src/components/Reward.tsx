@@ -38,7 +38,7 @@ const prizes: Prize[] = [
   },
   {
     id: 'better-luck',
-    name: 'Better luck next time!\nAwesome',
+    name: 'Better luck next time!',
     // nameArabic: 'حظـاً أوفر في المرة القادمـة​\nرائـع!',
     nameArabic: '',
     
@@ -46,7 +46,7 @@ const prizes: Prize[] = [
   },
   {
     id: 'try-again',
-    name: 'Better luck next time!\nAwesome',
+    name: 'Better luck next time!',
     nameArabic: '',
     // nameArabic: 'حظـاً أوفر في المرة القادمـة​\nرائـع!',
 
