@@ -80,6 +80,7 @@ export function Reward({ isOpen, onClose, onReset, onBack, language, userName }:
     prizeText: isArabic ? 'اكتشف جائزتك الآن.' : 'Unlock your prize now.',
     // buttonText: isArabic ? 'رائع!' : 'Awesome!',
     buttonText: isArabic ? '!رجوع' : 'Awesome!',
+    backButtonText: isArabic ? '!رجوع' : 'Back',
     youWin: isArabic 
         ? `لقد ربحت ${userName || ''}` 
         : `You win ${userName || ''}`,
@@ -415,12 +416,12 @@ export function Reward({ isOpen, onClose, onReset, onBack, language, userName }:
                    transition={{ duration: 0.6, delay: 0.4 }}
                    className="w-full"
                  >
-                   <Button
-                     onClick={handleAwesomeClick}
-                     className={`w-full h-14 bg-gradient-to-r from-blue-600 to-[#C8102E] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 no-select text-lg ${isArabic ? 'font-arabic' : ''}`}
-                   >
-                     {content.buttonText}
-                   </Button>
+                     <Button
+                       onClick={handleAwesomeClick}
+                       className={`w-full h-14 bg-gradient-to-r from-blue-600 to-[#C8102E] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 no-select text-lg ${isArabic ? 'font-arabic' : ''}`}
+                     >
+                       {isWinningPrize ? content.buttonText : content.backButtonText}
+                     </Button>
                  </motion.div>
                </div>
              </div>
