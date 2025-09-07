@@ -24,14 +24,14 @@ export function LanguageScreen({ onLanguageSelect }: LanguageScreenProps) {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-8"
         >
-          <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-[#C8102E] rounded-full flex items-center justify-center mx-auto mb-6">
+          {/* <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-[#C8102E] rounded-full flex items-center justify-center mx-auto mb-6">
           <img 
     src="/logo.png"   // place your logo inside public folder
     alt="Logo"
     className="w-50 h-50 object-contain"
-  />
+  /> */}
             {/* <Globe className="w-10 h-10 text-white" /> */}
-          </div>
+          {/* </div> */}
           <h1 className="text-4xl font-bold text-white mb-2 font-arabic">
             اختر لغتك 
             {/* اختر لغتك المفضلة */}

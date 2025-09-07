@@ -42,14 +42,14 @@ export function IntroScreen({ onStart, onBack, language }: IntroScreenProps) {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-8"
         >
-          <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-[#C8102E] rounded-full flex items-center justify-center mx-auto mb-6">
+          {/* <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-[#C8102E] rounded-full flex items-center justify-center mx-auto mb-6"> */}
             {/* <span className="text-white text-2xl font-bold">NF</span> */}
-            <img 
+            {/* <img 
     src="/logo.png"   // place your logo inside public folder
     alt="Logo"
     className="w-50 h-50 object-contain"
-  />
-          </div>
+  /> */}
+          {/* </div> */}
           {/* <h1 className="text-3xl font-bold text-white mb-4">
             {content.title}
           </h1> */}
@@ -90,31 +90,54 @@ export function IntroScreen({ onStart, onBack, language }: IntroScreenProps) {
             <ArrowRight className={`w-5 h-5 ${isArabic ? 'ml-0 mr-3 rotate-180' : 'ml-3'}`} />
           </Button>
         </motion.div> */}
-<div className={`flex ${isArabic ? 'flex-row-reverse' : 'flex-col'} items-center gap-4 mt-6`}>
+               <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          
+          className={`flex ${isArabic ? 'space-x-reverse space-x-4' : 'space-x-4'} flex-col space-y-4` }
+        >
+         
+          <Button
+            onClick={onBack}
+            className="flex-1 h-15 bg-gradient-to-r from-blue-600 to-[#C8102E] text-white font-semibold rounded-xl shadow-lg no-select"
+          >
+            {content.backButtonText}
+          </Button>
+          
+         
+          <Button
+            onClick={onStart}
+            className="flex-1 h-15 bg-gradient-to-r from-blue-600 to-[#C8102E] text-white font-semibold rounded-xl shadow-lg no-select px-0"
+          >
+            {content.buttonText}
+          </Button>
+        </motion.div>
+{/* <div className={`flex ${isArabic ? 'flex-row-reverse' : 'flex-col'} items-center gap-4 mt-6 flex-col space-y-4 `}> */}
   {/* Back Button */}
-  <Button
+  {/* <Button
     onClick={onBack}
     className="flex-1 h-14 bg-gradient-to-r from-blue-600 to-[#C8102E] 
                text-white font-semibold rounded-xl shadow-lg 
                hover:shadow-xl transition-all duration-200 
                hover:scale-105 no-select text-lg"
-  >
-    <ArrowLeft className={`w-5 h-5 ${isArabic ? 'ml-2 rotate-180' : 'mr-2'}`} />
-    {content.backButtonText}
-  </Button>
+  > */}
+    {/* <ArrowLeft className={`w-5 h-5 ${isArabic ? 'ml-2 rotate-180' : 'mr-2'}`} /> */}
+    {/* {content.backButtonText} */}
+  {/* </Button> */}
 
   {/* Start Button */}
-  <Button
+  {/* <Button
     onClick={onStart}
     className="flex-1  h-14 bg-gradient-to-r from-blue-600 to-[#C8102E] 
                text-white font-semibold rounded-xl shadow-lg 
                hover:shadow-xl transition-all duration-200 
                hover:scale-105 no-select text-lg"
   >
-    {content.buttonText}
-    <ArrowRight className={`w-5 h-5 ${isArabic ? 'mr-2 rotate-180' : 'ml-2'}`} />
-  </Button>
-</div>
+    {content.buttonText} */}
+    {/* <ArrowRight className={`w-5 h-5 ${isArabic ? 'mr-2 rotate-180' : 'ml-2'}`} /> */}
+  {/* </Button> */}
+{/* </div> */}
 
      
       </div>

@@ -88,16 +88,29 @@ export function Question({
             transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
           >
             
+            {!isArabic && (
+              <>
+                {selectedAnswer === option.id ? (
+                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mr-3" />
+                ) : (
+                  <Circle className="w-5 h-5 text-white/60 flex-shrink-0 mr-3" />
+                )}
+              </>
+            )}
             <span 
               className="text-white font-medium flex-1"
               style={isArabic ? { wordSpacing: '0.3em' } : {}}
             >
               {option.text}
             </span>
-            {selectedAnswer === option.id ? (
-              <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 ml-3" />
-            ) : (
-              <Circle className="w-5 h-5 text-white/60 flex-shrink-0 ml-3" />
+            {isArabic && (
+              <>
+                {selectedAnswer === option.id ? (
+                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 ml-3" />
+                ) : (
+                  <Circle className="w-5 h-5 text-white/60 flex-shrink-0 ml-3" />
+                )}
+              </>
             )}
           </motion.button>
           
@@ -150,10 +163,11 @@ export function Question({
         >
           <Button
             onClick={onBack}
-            variant="outline"
-            className="flex-1 h-12 border-white/30 text-white hover:bg-white/10 no-select"
+            className={`flex-1 h-12 bg-gradient-to-r from-blue-600 to-[#C8102E] text-white font-semibold rounded-xl shadow-lg no-select ${
+              !selectedAnswer ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
           >
-            <ArrowLeft className={`w-4 h-4 ${isArabic ? 'ml-2 rotate-180' : 'mr-2'}`} />
+            {/* <ArrowLeft className={`w-4 h-4 ${isArabic ? 'ml-2 rotate-180' : 'mr-2'}`} /> */}
             {buttonText.back}
           </Button>
           
@@ -165,7 +179,7 @@ export function Question({
             }`}
           >
             {isLast ? buttonText.finish : buttonText.next}
-            <ArrowRight className={`w-4 h-4 ${isArabic ? 'mr-2 rotate-180' : 'ml-2'}`} />
+            {/* <ArrowRight className={`w-4 h-4 ${isArabic ? 'mr-2 rotate-180' : 'ml-2'}`} /> */}
           </Button>
         </motion.div>
       </div>

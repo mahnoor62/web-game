@@ -31,9 +31,6 @@ export default function Home() {
     setShowIntro(true);
   };
 
-  const handleStartBeforeBegin = () => {
-    setShowBeforeBegin(true);
-  };
 
   const handleBackToBeforeBeginFromQuiz = () => {
     setShowQuiz(false);
@@ -65,11 +62,6 @@ export default function Home() {
     setShowQuiz(false);
   };
 
-  const handleBackToBeforeBegin = () => {
-    setShowQuiz(false);
-    // Ensure showBeforeBegin stays true so we can go back to it
-    setShowBeforeBegin(true);
-  };
 
   // Get content based on selected language
   const getContent = () => {
@@ -99,11 +91,7 @@ export default function Home() {
       return <IntroScreen onStart={handleStartIntro} onBack={handleBackToLanguage} language={selectedLanguage} />;
     }
     
-    if (!showBeforeBegin) {
-      return <BeforeYouBeginScreen onStart={handleStartBeforeBegin} onBack={handleBackToIntro} language={selectedLanguage} />;
-    }
-    
-    if (!showQuiz) {
+    if (showQuiz) {
       return <Quiz 
         goals={content.goals}
         stages={content.stages}
@@ -114,16 +102,8 @@ export default function Home() {
       />;
     }
     
-    return (
-      <Quiz 
-        goals={content.goals}
-        stages={content.stages}
-        questions={content.questions}
-        onReset={handleReset}
-        onBackToBeforeBegin={handleBackToBeforeBeginFromQuiz}
-        language={selectedLanguage}
-      />
-    );
+    // Show BeforeYouBeginScreen when showBeforeBegin is true and showQuiz is false
+    return <BeforeYouBeginScreen onStart={handleStartQuiz} onBack={handleBackToIntro} language={selectedLanguage} />;
   };
   return (
     <div className={`min-h-screen w-full relative bg-transparent ${selectedLanguage === 'arabic' ? 'font-arabic' : 'font-english'}`}>
