@@ -31,11 +31,19 @@ const prizes: Prize[] = [
     icon: Glasses
   },
   {
-    id: 'bluetooth-speaker',
-    name: 'Bluetooth Speaker',
-    nameArabic: 'مكبر صوت بلوتوث',
-    icon: Speaker
+    id: 'try-again',
+    name: 'Better luck next time!',
+    nameArabic: '',
+    // nameArabic: 'حظـاً أوفر في المرة القادمـة​\nرائـع!',
+
+    icon: Package
   },
+  // {
+  //   id: 'bluetooth-speaker',
+  //   name: 'Bluetooth Speaker',
+  //   nameArabic: 'مكبر صوت بلوتوث',
+  //   icon: Speaker
+  // },
   {
     id: 'better-luck',
     name: 'Better luck next time!',
